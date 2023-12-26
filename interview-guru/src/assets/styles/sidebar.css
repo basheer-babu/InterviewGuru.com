@@ -1,0 +1,141 @@
+.nav
+{
+    height:10vh;
+    margin: 0;
+    background-color:#5a776e;
+    display: flex;
+    justify-content:space-between;
+    padding:0px 10px;
+    color:white;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.nav h2{
+    cursor:pointer;
+    
+}
+.nav i.bi {
+   font-size: 30px; 
+   color:white;
+   cursor:pointer;
+
+}
+
+.nav Button{
+    color: white;
+    border-color: white;
+}
+
+
+.logo
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:15px;
+    color: white;
+}
+body{
+    background-color:aliceblue
+}
+
+.nav ul{
+    list-style-type: none;
+    display:flex;
+    align-items: center;
+    gap:15px;
+    cursor: pointer;
+
+}
+.nav ul li
+{
+    cursor:pointer;
+  
+}
+.nav ul li :hover{
+    background-color: antiquewhite;
+}
+.sidebar-container
+{
+    color:white;
+    
+    background-color:#5a776e;
+    width:250px;
+    height:calc(100vh - 10vh);
+    overflow-y:scroll;
+    overflow-x: hidden;
+    
+    position: fixed;
+    top: 10vh;
+    left: 0;
+    z-index: 1;
+    cursor: pointer;
+
+}
+.sidebar-container::-webkit-scrollbar
+{
+    display:none;
+}
+
+.nav-option-option1
+{
+   display:flex;
+   align-items: center;
+   padding:0px 0px 0px 30px;
+   gap:10px;
+   width:280px;
+
+}
+.nav-option-option1:hover,.nav-option-option1:hover i.bi
+{
+background-color: white;
+color:black;
+cursor:pointer
+}
+.nav-option-option1 i.bi
+{
+    color:azure;
+    font-size: 20px;
+
+}
+@media screen and (min-width:768px) {
+    .navCollaps
+    {
+        width:80px;
+    }
+    .navCollaps .nav-option-option1 h3 
+    {
+        display:none;
+    }
+    .navCollaps .nav-option-option1 i.bi 
+    {
+      padding:28px;
+    }
+    .smallDeviceIcon 
+    {
+        display:none;
+    }
+    }
+    @media screen and (max-width:767px) {
+        .largeDeviceIcon
+        {
+            display: none;
+        }
+        .smallNav{
+            display:block;
+        }
+        .sidebar-container
+        {
+            display:none
+        }
+        .logo h2{
+           display:none;
+        }
+       
+        
+    }
