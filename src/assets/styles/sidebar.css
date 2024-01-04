@@ -16,21 +16,18 @@
 }
 
 .nav h2{
-    cursor:pointer;
-    
+    cursor:pointer;   
 }
 .nav i.bi {
    font-size: 30px; 
    color:white;
    cursor:pointer;
-
 }
 
 .nav Button{
     color: white;
     border-color: white;
 }
-
 
 .logo
 {
@@ -40,6 +37,7 @@
     gap:15px;
     color: white;
 }
+
 body{
     background-color:aliceblue
 }
@@ -50,38 +48,49 @@ body{
     align-items: center;
     gap:15px;
     cursor: pointer;
-
 }
+
 .nav ul li
 {
     cursor:pointer;
-  
 }
+
 .nav ul li :hover{
     background-color: antiquewhite;
 }
+
 .sidebar-container
 {
     color:white;
-    
     background-color:#5a776e;
     width:250px;
     height:calc(100vh - 10vh);
     overflow-y:scroll;
     overflow-x: hidden;
-    
     position: fixed;
     top: 10vh;
     left: 0;
     z-index: 1;
     cursor: pointer;
+}
 
+.sidebar-container ul{
+    list-style-type: none;
+    display: block;
+    gap:15px;
+}
+.sidebar-container ul li{
+    padding: 10px;
+    cursor: pointer;
+    
+}
+.sidebar-container ul li:hover{
+    color: black;
 }
 .sidebar-container::-webkit-scrollbar
 {
     display:none;
 }
-
 .nav-option-option1
 {
    display:flex;
@@ -121,7 +130,7 @@ cursor:pointer
         display:none;
     }
     }
-    @media screen and (max-width:767px) {
+    @media screen and (max-width:750px) {
         .largeDeviceIcon
         {
             display: none;
@@ -136,6 +145,11 @@ cursor:pointer
         .logo h2{
            display:none;
         }
+        .show .sidebar-container{
+            display: block;
+        }
        
         
     }
+
+    

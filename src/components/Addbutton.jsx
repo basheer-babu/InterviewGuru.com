@@ -1,85 +1,99 @@
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useState,React } from 'react';
+import axios from 'axios';
 
 export default function FormDialog() {
   const [open, setOpen] = useState(false);
-  const[displayQuestion,setDisplayquestion]=useState('')
-  const [formData, setFormData] = useState({
-    questions: '',
-  });
+  const [userName, setUserName] = useState('');
+  const [companyName, setCompanyName] = useState('');
+  const [textquestion, setTextQuestion] = useState('');
+  const [allQuestions, setAllQuestions] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClickClose = () => {
     setOpen(false);
   };
 
-  const handleInputChange = (e) => {
-    const { id, value } = e.target;
-    setFormData((prevData) => ({...prevData,[id]: value,}));
+  const handleSave = async () => {
+    setOpen(false);
+
+    try {
+      const body = {
+        userName: userName,
+        companyName: companyName,
+        questions: allQuestions.join(','),
+      };
+      const response = await axios.post('https://interviewguru.onrender.com/api/user/save', body);
+      console.log(response.data);
+    } catch (error) {
+      alert('Error occured while posting the data')
+    }
   };
 
-  const handleAdd = () => {
-       setDisplayquestion(formData.questions)
+  const addTextQuestion = () => {
+    setAllQuestions((prevQuestions) => [...prevQuestions, textquestion]);
+    setTextQuestion('');
   };
-
 
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
         ADD
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handleClickClose}>
         <DialogTitle>Add Question</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
             margin="dense"
-            id="username"
-            label="Username"
+            id="userName"
+            label="userName"
             fullWidth
             variant="standard"
-            onChange={handleInputChange}
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
           />
           <TextField
             autoFocus
             margin="dense"
-            id="companyname"
-            label="Company"
+            id="companyName"
+            label="companyName"
             fullWidth
             variant="standard"
-            onChange={handleInputChange} 
+            value={companyName}
+            onChange={(e) => setCompanyName(e.target.value)}
           />
+
           <TextField
             autoFocus
             margin="dense"
-            id="questions"
-            label="Write your questions here...."
+            id="textquestion"
+            label="Enter Question"
             fullWidth
             variant="standard"
-            value={formData.questions}
-            onChange={handleInputChange}
-          /><br></br><br></br>
-        
-        <TextField  
-        multiline
-        rows={4}
-        fullWidth
-        variant='outlined'
-        label='ViewQuestion'
-        value={displayQuestion}
-        />
+            value={textquestion}
+            onChange={(e) => setTextQuestion(e.target.value)}
+          />
+
+          {allQuestions.length > 0 &&
+            allQuestions.map((question, index) => (
+              <div key={index}>
+                <p>Question {index + 1}</p>
+                <p>{question}</p>
+              </div>
+            ))}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleAdd}>Add</Button>
-          <Button onClick={handleClose}>SaveResponse</Button>
+          <Button onClick={addTextQuestion}>Add Text Question</Button>
+          <Button onClick={handleSave}>Save Response</Button>
         </DialogActions>
       </Dialog>
     </div>
