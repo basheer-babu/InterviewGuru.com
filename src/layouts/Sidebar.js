@@ -3,7 +3,8 @@ import { fetchAll } from '../services/fetchAlldetails'
 import Button from '@mui/material/Button';
 import '../assets/styles/sidebar.css'
 import FormDialog from '../components/Addbutton';
-
+import TipsAndUpdatesOutlinedIcon from '@mui/icons-material/TipsAndUpdatesOutlined';
+import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 
 const Sidebar = ({ onCompanySelect }) => {
   const [companies, setCompanies] = useState([]);
@@ -31,14 +32,15 @@ const Sidebar = ({ onCompanySelect }) => {
     onCompanySelect(company);
      
   };
-
- 
-
  return (
     <div>
       <div className='nav'>
       
-        <h2>COMPANIES</h2>
+        <MenuOutlinedIcon className='menu-icon'/>
+        <h3 >
+          InterviewGuru
+        <TipsAndUpdatesOutlinedIcon className='bulb-icon' />
+        </h3>
         <Button>
          <FormDialog/>
         </Button>

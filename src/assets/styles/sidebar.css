@@ -17,7 +17,20 @@
 
 .nav h2{
     cursor:pointer;   
+    font-size: 18px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+
+.nav h3{
+    cursor: pointer;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: rgb(7, 61, 50);
+    font-size: 22px;
+    text-align: center;
+    margin-top: 10px;
+    
+}
+    
 .nav i.bi {
    font-size: 30px; 
    color:white;
@@ -41,13 +54,17 @@
 body{
     background-color:aliceblue
 }
-
+.menu-icon{
+    margin:2vh;
+    
+}
 .nav ul{
     list-style-type: none;
     display:flex;
     align-items: center;
     gap:15px;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 
 .nav ul li
@@ -125,19 +142,10 @@ cursor:pointer
     {
       padding:28px;
     }
-    .smallDeviceIcon 
-    {
-        display:none;
-    }
+    
     }
     @media screen and (max-width:750px) {
-        .largeDeviceIcon
-        {
-            display: none;
-        }
-        .smallNav{
-            display:block;
-        }
+       
         .sidebar-container
         {
             display:none
@@ -148,8 +156,16 @@ cursor:pointer
         .show .sidebar-container{
             display: block;
         }
-       
-        
+           
+    }
+    @media (max-width:400px) {
+        .nav h3{
+            /* display: none; */
+            font-size: 18px;
+        }
+        .bulb-icon{
+            display: none !important ;
+        }
     }
 
     

@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import axios from 'axios';
+import { Alert, Snackbar } from '@mui/material';
+import { AddQuestionService } from '../services/fetchAlldetails';
 
 export default function FormDialog() {
   const [open, setOpen] = useState(false);
@@ -13,6 +14,8 @@ export default function FormDialog() {
   const [companyName, setCompanyName] = useState('');
   const [textquestion, setTextQuestion] = useState('');
   const [allQuestions, setAllQuestions] = useState([]);
+  const [save, setSave] = useState(null);
+  const [error, setError] = useState(null);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -22,20 +25,45 @@ export default function FormDialog() {
     setOpen(false);
   };
 
-  const handleSave = async () => {
-    setOpen(false);
-
-    try {
-      const body = {
-        userName: userName,
-        companyName: companyName,
-        questions: allQuestions.join(','),
-      };
-      const response = await axios.post('https://interviewguru.onrender.com/api/user/save', body);
-      console.log(response.data);
-    } catch (error) {
-      alert('Error occured while posting the data')
+  useEffect(() => {
+    if (error) {
+      var interval = setTimeout(() => {
+        setError(null);
+      }, 6000);
     }
+    return () => clearTimeout(interval);
+  }, [error]);
+
+  const handleSave = () => {
+    if (userName.length === 0 || companyName.length === 0) {
+      setError('Please fill in all details');
+      setOpen(true);
+      return;
+    }
+
+    setUserName('');
+    setCompanyName('');
+    setAllQuestions([]);
+
+    const body = {
+      userName: userName,
+      companyName: companyName,
+      questions: allQuestions.join(','),
+    };
+
+    AddQuestionService(body)
+      .then((response) => {
+        if (response ) {
+          setSave('Saved Successfully');
+          setOpen(false);
+        } else {
+          throw new Error('Failed to save');
+        }
+      })
+      .catch((err) => {
+        setError(`Error: ${err.message}`);
+        setOpen(true);
+      });
   };
 
   const addTextQuestion = () => {
@@ -48,6 +76,7 @@ export default function FormDialog() {
       <Button variant="outlined" onClick={handleClickOpen}>
         ADD
       </Button>
+
       <Dialog open={open} onClose={handleClickClose}>
         <DialogTitle>Add Question</DialogTitle>
         <DialogContent>
@@ -91,11 +120,31 @@ export default function FormDialog() {
               </div>
             ))}
         </DialogContent>
+
+        {error && (
+          <Alert severity="error" sx={{ width: '100%' }}>
+            {error}
+          </Alert>
+        )}
+
         <DialogActions>
           <Button onClick={addTextQuestion}>Add Text Question</Button>
           <Button onClick={handleSave}>Save Response</Button>
         </DialogActions>
       </Dialog>
+
+      {save && (
+        <Snackbar
+          open={save !== null}
+          autoHideDuration={4000}
+          onClose={() => setSave(null)}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        >
+          <Alert severity="success" sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
+            {save}
+          </Alert>
+        </Snackbar>
+      )}
     </div>
   );
 }
