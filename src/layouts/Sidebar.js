@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { fetchAll } from '../services/fetchAlldetails'
-import Button from '@mui/material/Button';
-import '../assets/styles/sidebar.css'
+import React, { useEffect, useState } from 'react';
+import { fetchAll } from '../services/fetchAlldetails';
+import '../assets/styles/sidebar.css';
+import { Button } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 import FormDialog from '../components/Addbutton';
-
+import TipsAndUpdatesOutlinedIcon from '@mui/icons-material/TipsAndUpdatesOutlined';
 
 const Sidebar = ({ onCompanySelect }) => {
   const [companies, setCompanies] = useState([]);
   const [selectedCompany, setSelectedCompany] = useState(null);
-  
+  const [sidebarVisible, setSidebarVisible] = useState(window.innerWidth > 768);
 
   function fetchDetails() {
     fetchAll()
@@ -29,41 +30,56 @@ const Sidebar = ({ onCompanySelect }) => {
   const handleClick = (company) => {
     setSelectedCompany(company);
     onCompanySelect(company);
-     
+    if (window.innerWidth <= 768) {
+      setSidebarVisible(false)
+    }
   };
 
- 
+  const toggleSidebar = () => {
+    setSidebarVisible(!sidebarVisible);
+  };
 
- return (
+  useEffect(() => {
+    const handleResize = () => {
+      setSidebarVisible(window.innerWidth > 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  return (
     <div>
       <div className='nav'>
-      
-        <h2>COMPANIES</h2>
-        <Button>
-         <FormDialog/>
+        <Button onClick={toggleSidebar}>
+          <MenuIcon />
         </Button>
+        <h3 >
+          InterviewGuru
+      <TipsAndUpdatesOutlinedIcon className='bulb-icon' />   
+         </h3>
+        <FormDialog />
       </div>
-      <div className={`sidebar-container `}>
-        <ul>
-          {uniqueCompanies?.map((item, index) => (
-            <li
-              key={index}
-              onClick={() => {
-                handleClick(item)
-                
-              }}
-              className={item === selectedCompany ? 'selected' : ''}
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
+      {sidebarVisible && (
+        <div className='sidebar-container'>
+          <ul>
+            {uniqueCompanies?.map((item, index) => (
+              <li
+                key={index}
+                onClick={() => handleClick(item)}
+                className={item === selectedCompany ? 'selected' : ''}
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
 
 export default Sidebar;
-
-
-

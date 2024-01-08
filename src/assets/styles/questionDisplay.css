@@ -4,8 +4,8 @@
     flex-wrap: wrap;
     justify-content: space-between;
     margin: 11vh 5px;
-  
     max-width: 100%;
+    
 
     
     
@@ -49,8 +49,8 @@
 
 @media (max-width: 1000px) {
     .card {
-        flex: 0 0 calc(100% - 10px);
-        max-width: calc(100% - 10px);
+        flex: 0 0 calc(100% - 20px);
+        max-width: calc(100% - 20px);
     }
     
     .card {

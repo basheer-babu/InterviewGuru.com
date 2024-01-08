@@ -4,6 +4,8 @@ import '../assets/styles/questionDisplay.css';
 import img1 from '../assets/images/abstract-background-illustration-watercolor-blue-green_53876-108704.avif';
 import { Card, CardContent, CardMedia } from '@mui/material'
 import ResponsiveDialog from './popupDialog';
+import Alert from '@mui/material/Alert';
+
 
 import SimpleBackdrop from './Backdrop';
 
@@ -12,6 +14,7 @@ const QuestionDisplay = ({ selectedCompany }) => {
   const [selectedCard,setSelectedCard] = useState(null)
   const [open,setOpen]=useState(false)
   const [loading,setloading]=useState(true);
+  const [error,setError]=useState(null)
  
   function fetchQuestions() {
     fetchAll()
@@ -21,7 +24,7 @@ const QuestionDisplay = ({ selectedCompany }) => {
       })
       .catch((err) => {
         setloading(false);
-        alert("Error occured while fetching the data")
+        setError('There was an error while fetching the data')
       });
   }
 
@@ -76,7 +79,10 @@ const QuestionDisplay = ({ selectedCompany }) => {
 {selectedCard && (
   <ResponsiveDialog  qCard={selectedCard} open={open} onClose={handleCloseModal} />
 )}
-
+{
+  error && (
+  <Alert severity="error">{error}</Alert>
+)}
     </div>
   );
 };
