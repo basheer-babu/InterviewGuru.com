@@ -11,10 +11,10 @@ const Homepage = () => {
   return (
     <div>
       <Grid container spacing={2} >
-        <Grid item xs={0} sm={2} md={4} lg={3} xl={2}>
+        <Grid item xs={0} sm={0} md={4} lg={3} xl={2}>
           <Sidebar  onCompanySelect={handleCompanySelect}/>
         </Grid>
-        <Grid item xs={12} sm={10} md={8} lg={9} xl={10}>
+        <Grid item xs={12} sm={12} md={8} lg={9} xl={10}>
           <QuestionDisplay selectedCompany={selectedCompany}/>
         </Grid>
       </Grid>

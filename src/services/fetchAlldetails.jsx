@@ -5,5 +5,5 @@ export const fetchAll = async ()=>{
 }
 
 export const AddQuestionService = async (body) =>{
-    return await axios.post('https://intervieewguru.onrender.com/api/user/save',body).then((res)=>res.data)
+    return await axios.post('https://interviewguru.onrender.com/api/user/save',body).then((res)=>res.data)
 }

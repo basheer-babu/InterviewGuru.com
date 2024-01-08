@@ -73,7 +73,12 @@ export default function FormDialog() {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button variant="outlined" onClick={handleClickOpen} sx={{
+        '@media screen and (max-width:768px)':{
+          marginTop:'30px',
+        },
+        marginTop:'15px'
+      }} >
         ADD
       </Button>
 
