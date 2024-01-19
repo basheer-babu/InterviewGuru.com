@@ -103,7 +103,7 @@ export default function FormDialog() {
             fullWidth
             variant="standard"
             value={companyName}
-            onChange={(e) => setCompanyName(e.target.value)}
+            onChange={(e) => setCompanyName(e.target.value.toUpperCase())}
           />
 
           <TextField
