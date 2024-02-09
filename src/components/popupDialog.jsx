@@ -3,17 +3,16 @@ import { Typography ,Paper } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
-// import { useTheme } from '@mui/material/styles';
+
 
 export default function ResponsiveDialog({ qCard, onClose ,open }) {
 
-//   const theme = useTheme();
-//   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
     const maxWidth='300px'
   return (
     <React.Fragment>
       <Dialog
-        // fullScreen={fullScreen}
+        
         maxWidth={maxWidth}
         open={open}
         onClose={onClose}
